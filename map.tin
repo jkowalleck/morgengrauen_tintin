@@ -1,0 +1,109 @@
+#NOP map
+
+#VARIABLE {_map_error_li} {<199><FAA><fff> ! MAP ERROR ! <799>};
+#VARIABLE {_map_debug_li} {<199><FFA><aaa> :MAP DEBUG: <799>};
+
+
+#VARIABLE {_map_enabled} 0;
+
+#FUNCTION {map_room_setup}
+{
+	#IF {! $_map_enabled}
+	{
+		@DEBUG_msg{function map_room_setup aborted: no map found!};
+		#RETURN {#NOP};
+	}
+
+	@DEBUG_func_start{map_room_setup;{%0}};
+
+	#VARIABLE {_mrs_room} {%0};
+	@DEBUG_var{_mrs_room};
+
+	#MAP get roomname {_mrs_map_roomname};
+	@DEBUG_var{_mrs_map_roomname};
+
+	#IF { "${_mrs_map_roomname}" == "" }
+	{
+		#NOP new room;
+		#MAP set roomname {$_mrs_room.id};
+		#MAP set roomdesc {$_mrs_room.short};
+
+		#MAP get roomsymbol {_mrs_map_roomsymbol};
+		@DEBUG_var{_mrs_map_roomsymbol};
+		#IF {"${_mrs_map_roomsymbol}"=="?"}
+		{
+			#MAP set roomsymbol {};
+		};
+		#UNVARIABLE {_mrs_map_roomsymbol};
+
+		#MAP get roomexits {_mrs_map_roomexits};
+		@DEBUG_var{_mrs_map_roomexits};
+
+		#FOREACH {$_mrs_room.exits[%*]} {_mrs_room_exit}
+		{
+			@DEBUG_var{_mrs_room_exit};
+
+			@DEBUG_var{_mrs_map_roomexits[$_mrs_room_exit]};
+			#IF {$_mrs_map_roomexits[$_mrs_room_exit]}
+			{
+				#NOP already known room;
+				#SHOWME {$_map_debug_li known exit: $_mrs_room_exit };
+			}
+			{
+				#NOP new unknown room;
+				#MAP dig {$_mrs_room_exit};
+
+				#MAP get roomexits {_mrs_map_roomexits};
+				@DEBUG_var{_mrs_map_roomexits};
+
+				#VARIABLE {_mrs_map_roomexit_vnum} {$_mrs_map_roomexits[$_mrs_room_exit]};
+				@DEBUG_var{_mrs_map_roomexit_vnum};
+
+				#MAP set roomsymbol {?} {$_mrs_map_roomexit_vnum};
+				#UNVARIABLE {_mrs_map_roomexit_vnum}
+			};
+		};
+		#UNVARIABLE {_mrs_room_exit};
+
+		#UNVARIABLE {_mrs_map_roomexits};
+	} {
+		#NOP already known room;
+		#SHOWME {$_map_debug_li known room: $_mrs_map_roomname };
+		#IF {"${_mrs_map_roomname}"!="${_mrs_room.id}"}
+		{
+			#SHOWME {$_map_error_li room mismatch \n map: $_mrs_map_roomname \n mud: ${_mrs_room.id} };
+		};
+	};
+
+	#UNVARIABLE {_mrs_map_roomname};
+	#UNVARIABLE {_mrs_room};
+
+	@DEBUG_func_end{map_room_setup};
+	#RETURN {#NOP};
+};
+
+
+#FUNCTION {map_init}
+{
+	@DEBUG_func_start{map_init;{%0}};
+
+	#MAP create 20000;
+	#MAP goto 1;
+	#MAP flag asciigraphics on;
+	#MAP flag vtmap;
+
+	#VARIABLE {_map_enabled} 1;
+
+	@map_room_setup{$gmcp_room[info]};
+
+	@DEBUG_func_end{map_init};
+	#RETURN {#NOP};
+};
+
+
+#EVENT {VARIABLE UPDATE gmcp_room}
+{
+	@DEBUG_event_start{VARIABLE UPDATE gmcp_room};
+	@map_room_setup{%1[info]};
+	@DEBUG_event_end{VARIABLE UPDATE gmcp_room};
+};

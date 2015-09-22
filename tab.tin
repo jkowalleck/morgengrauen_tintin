@@ -1,0 +1,7 @@
+#NOP tab completion
+
+#TAB        {untersuche}
+#TAB        {info}
+#TAB        {kurzinfo}
+#TAB        {frage}
+#TAB        {schaue}

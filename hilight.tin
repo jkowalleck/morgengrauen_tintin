@@ -1,0 +1,9 @@
+#NOP hilights
+
+#HIGHLIGHT  {^Es gibt %w sichtbare{n Ausgang| Ausgaenge}:}  {light blue}  {5}
+
+#HIGHLIGHT  {^%* teilt Dir mit:}  {light green}  {5}
+#HIGHLIGHT  {^Du teilst %w mit:}  {light green}  {5}
+#HIGHLIGHT  {^[%w:%*]%*}  {green}  {5}
+
+#HIGHLIGHT  {^[Tod:%*]%*}  {light red}  {5}

@@ -1,0 +1,100 @@
+#NOP GMCP
+#NOP read ingame help for details -> `hilfe gmcp`
+
+
+#FORMAT _gmcp_IAC  %a 255
+#FORMAT _gmcp_DONT %a 254
+#FORMAT _gmcp_DO   %a 253
+#FORMAT _gmcp_WONT %a 252
+#FORMAT _gmcp_WILL %a 251
+#FORMAT _gmcp_SB   %a 250
+#FORMAT _gmcp_SE   %a 240
+#FORMAT _gmcp_GMCP %a 201
+
+
+
+
+
+#EVENT {IAC WILL GMCP}
+{
+	@DEBUG_event_start{IAC WILL GMCP};
+	#send {$_gmcp_IAC$_gmcp_DO$_gmcp_GMCP};
+	#send {$_gmcp_IAC$_gmcp_SB$_gmcp_GMCP\Core.Hello { "client": "${_client.name}", "version": "${_client.version}" }$_gmcp_IAC$_gmcp_SE};
+	#send {$_gmcp_IAC$_gmcp_SB$_gmcp_GMCP\Core.Supports.Set [ "Core 1", "MG.char 1", "MG.room 1", "MG.team 1", " comm.channel 1"]$_gmcp_IAC$_gmcp_SE};
+	@DEBUG_event_end{IAC WILL GMCP};
+};
+
+
+
+#event {IAC SB GMCP MG.char.infoVars IAC SE}
+{
+	@DEBUG_event_start{MG.char.infoVars};
+	#VARIABLE gmcp_char[infoVars] {%0};
+	@DEBUG_var{gmcp_char[infoVars]};
+	@DEBUG_gmcp_end{MG.char.infoVars};
+};
+
+#event {IAC SB GMCP MG.char.info IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.infoVars};
+	#VARIABLE gmcp_char[info] {%0};
+	@DEBUG_var{gmcp_char[info]};
+	@DEBUG_gmcp_end{MG.char.infoVars};
+};
+
+#event {IAC SB GMCP MG.char.attributes IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.attributes};
+	#VARIABLE gmcp_char[attributes] {%0};
+	@DEBUG_var{gmcp_char[attributes]};
+	@DEBUG_gmcp_end{MG.char.attributes};
+};
+
+#event {IAC SB GMCP MG.char.maxvitals IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.maxvitals};
+	#VARIABLE gmcp_char[maxvitals] {%0};
+	@DEBUG_var{gmcp_char[maxvitals]};
+	@DEBUG_gmcp_end{MG.char.maxvitals};
+};
+
+#event {IAC SB GMCP MG.char.vitals IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.vitals};
+	#VARIABLE gmcp_char[vitals] {%0};
+	@DEBUG_var{gmcp_char[vitals]};
+	@DEBUG_gmcp_end{MG.char.vitals};
+};
+
+#event {IAC SB GMCP MG.char.base IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.base};
+	#VARIABLE gmcp_char[base] {%0};
+	@DEBUG_var{gmcp_char[base]};
+	@DEBUG_gmcp_end{MG.char.base};
+};
+
+#event {IAC SB GMCP MG.char.wimpy IAC SE}
+{
+	@DEBUG_gmcp_start{MG.char.wimpy};
+	#VARIABLE gmcp_char[wimpy] {%0};
+	@DEBUG_var{gmcp_char[wimpy]};
+	@DEBUG_gmcp_end{MG.char.wimpy};
+};
+
+#event {IAC SB GMCP MG.room.info IAC SE}
+{
+	@DEBUG_gmcp_start{MG.room.info};
+	#VARIABLE gmcp_room[info] {%0};
+	@DEBUG_var{gmcp_room[info]};
+	@DEBUG_gmcp_end{MG.room.info};
+};
+
+
+
+
+
+
+
+
+

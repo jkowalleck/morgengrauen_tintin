@@ -1,0 +1,168 @@
+#NOP debug
+
+#NOP :levels:
+
+#VARIABLE {_dbg_lvl_none} 0;
+#VARIABLE {_dbg_lvl_msg} 1;
+#VARIABLE {_dbg_lvl_var} 2;
+#VARIABLE {_dbg_lvl_func} 4;
+#VARIABLE {_dbg_lvl_event} 8;
+#VARIABLE {_dbg_lvl_gmcp} 16;
+#VARIABLE {_dbg_lvl_telnet} 32;
+#VARIABLE {_dbg_lvl_all} 255;
+
+#VARIABLE {_dbg_li} {<199><FFC><aaa> :DEBUG: <799>}
+
+#VARIABLE {DEBUG} {$_dbg_lvl_none};
+
+
+
+#EVENT {VARIABLE UPDATE DEBUG}
+{
+	#SHOW {$_dbg_li level set to %1 };
+	@DEBUG_config_telnet{};
+};
+
+#FUNCTION {DEBUG_config_telnet}
+{
+	#IF {$DEBUG >= $_dbg_lvl_telnet}
+	{
+		#CONFIG {debug telnet} {ON};
+	};
+	#RETURN {#NOP};
+};
+@DEBUG_config_telnet{};
+
+
+
+#FUNCTION {DEBUG_gmcp_start}
+{
+	#VARIABLE {_dbg_gmcps_name} {%1};
+
+	#IF {$DEBUG >= $_dbg_lvl_gmcp}
+	{
+		#ECHO {$_dbg_li gmcp "${_dbg_gmcps_name}" started };
+	};
+
+	#UNVARIABLE {_dbg_gmcps_name};
+	#RETURN {#NOP};
+};
+
+#FUNCTION {DEBUG_gmcp_end}
+{
+	#VARIABLE {_dbg_gmcpe_name} {%1};
+
+	#IF {$DEBUG >= $_dbg_lvl_gmcp}
+	{
+		#ECHO {$_dbg_li gmcp "${_dbg_gmcpe_name}" ended };
+	};
+
+	#UNVARIABLE {_dbg_gmcpe_name};
+	#RETURN {#NOP};
+};
+
+
+
+#FUNCTION {DEBUG_event_start}
+{
+	#VARIABLE {_dbg_es_name} {%1};
+
+	#IF {$DEBUG >= $_dbg_lvl_event}
+	{
+		#ECHO {$_dbg_li event "${_dbg_es_name}" started };
+	};
+
+	#UNVARIABLE {_dbg_es_name};
+	#RETURN {#NOP};
+};
+
+#FUNCTION {DEBUG_event_end}
+{
+	#VARIABLE {_dbg_es_name} {%1};
+
+	#IF {$DEBUG >= $_dbg_lvl_event}
+	{
+		#ECHO {$_dbg_li event "${_dbg_es_name}" ended };
+	};
+
+	#UNVARIABLE {_dbg_es_name};
+	#RETURN {#NOP};
+};
+
+
+#FUNCTION {DEBUG_msg}
+{
+	#IF {$DEBUG >= $_dbg_lvl_msg}
+	{
+		#ECHO {$_dbg_li %0 };
+	}
+	#RETURN {#NOP};
+};
+
+
+
+#FUNCTION {DEBUG_var}
+{
+	#VARIABLE {_dbg_sv_name} {%1};
+
+	#IF {$DEBUG >= $_dbg_lvl_var}
+	{
+		#SHOWME {$_dbg_li var $_dbg_sv_name = ${$_dbg_sv_name} };
+	};
+
+	#UNVARIABLE {_dbg_sv_name};
+	#RETURN {#NOP};
+};
+
+
+#FUNCTION {DEBUG_func_start}
+{
+	#VARIABLE {_dbg_fs_name} {%1};
+	#VARIABLE {_dbg_fs_args} {%2};
+
+	#IF {$DEBUG >= $_dbg_lvl_func}
+	{
+		#ECHO {$_dbg_li function "${_dbg_fs_name}" started };
+	};
+
+	@DEBUG_var{_dbg_fs_args};
+
+	#UNVARIABLE {_dbg_fs_name};
+	#UNVARIABLE {_dbg_fs_args};
+	#RETURN {#NOP};
+};
+
+#FUNCTION {DEBUG_func_end}
+{
+	#VARIABLE {_dbg_fe_name} {%1};
+
+	#IF {$DEBUG >= _dbg_lvl_func}
+	{
+		#ECHO {$_dbg_li function "${_dbg_fe_name}" ended };
+	};
+
+	#UNVARIABLE {_dbg_fe_name};
+	#RETURN {#NOP};
+};
+
+
+
+
+
+
+
+
+
+#FUNCTION {_DEBUG_test}
+{
+	@DEBUG_func_start{_DEBUG_test;{%0}};
+
+	@DEBUG_msg{test message};
+	
+	#VAR {_dbg_test_var} {foo};
+	@DEBUG_var{_dbg_test_var};
+
+	@DEBUG_func_end{_DEBUG_test};
+
+	#RETURN {#NOP};
+};
