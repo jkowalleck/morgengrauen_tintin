@@ -1,38 +1,37 @@
-#NOP directions
-#NOP @TODO add up, down ... 
+#NOP directions ;
 
-#NOP unset defaults
-#UNPATHDIR {d}  {u}  {32}
-#UNPATHDIR {e}  {w}  {2}
-#UNPATHDIR {n}  {s}  {1}
-#UNPATHDIR {ne}  {sw}  {3}
-#UNPATHDIR {nw}  {se}  {9}
-#UNPATHDIR {s}  {n}  {4}
-#UNPATHDIR {se}  {nw}  {6}
-#UNPATHDIR {sw}  {ne}  {12}
-#UNPATHDIR {u}  {d}  {16}
-#UNPATHDIR {w}  {e}  {8}
+#NOP unset defaults ;
+#UNPATHDIR {d}  {u}  {32};
+#UNPATHDIR {e}  {w}  {2};
+#UNPATHDIR {n}  {s}  {1};
+#UNPATHDIR {ne}  {sw}  {3};
+#UNPATHDIR {nw}  {se}  {9};
+#UNPATHDIR {s}  {n}  {4};
+#UNPATHDIR {se}  {nw}  {6};
+#UNPATHDIR {sw}  {ne}  {12};
+#UNPATHDIR {u}  {d}  {16};
+#UNPATHDIR {w}  {e}  {8};
 
-#NOP set directions
-#PATHDIR {norden}  {sueden}  {1}
-#PATHDIR {osten}   {westen}  {2}
-#PATHDIR {sueden}  {norden}  {4}
-#PATHDIR {westen}  {osten}   {8}
-#PATHDIR {nordosten}   {suedwesten}  {3}
-#PATHDIR {suedosten}   {nordwesten}  {6}
-#PATHDIR {nordwesten}  {suedosten}   {9}
-#PATHDIR {suedwesten}  {nordosten}   {12}
-#PATHDIR {oben}   {unten}  {16}
-#PATHDIR {unten}  {oben}   {32}
+#NOP set directions ;
+#PATHDIR {norden}  {sueden}  {1};
+#PATHDIR {osten}   {westen}  {2};
+#PATHDIR {sueden}  {norden}  {4};
+#PATHDIR {westen}  {osten}   {8};
+#PATHDIR {nordosten}   {suedwesten}  {3};
+#PATHDIR {suedosten}   {nordwesten}  {6};
+#PATHDIR {nordwesten}  {suedosten}   {9};
+#PATHDIR {suedwesten}  {nordosten}   {12};
+#PATHDIR {oben}   {unten}  {16};
+#PATHDIR {unten}  {oben}   {32};
 
-#NOP alias the shordhands - duplicate directions will make the map go mad
-#ALIAS {n}  {norden}
-#ALIAS {o}  {osten}
-#ALIAS {s}  {sueden}
-#ALIAS {w}  {westen}
-#ALIAS {no} {nordosten}
-#ALIAS {so} {suedosten}
-#ALIAS {nw} {nordwesten}
-#ALIAS {sw} {suedwesten}
-#ALIAS {u}  {unten}
+#NOP alias the shordhands - duplicate directions will make the map go mad;
+#ALIAS {n}  {norden};
+#ALIAS {o}  {osten};
+#ALIAS {s}  {sueden};
+#ALIAS {w}  {westen};
+#ALIAS {no} {nordosten};
+#ALIAS {so} {suedosten};
+#ALIAS {nw} {nordwesten};
+#ALIAS {sw} {suedwesten};
+#ALIAS {u}  {unten};
 

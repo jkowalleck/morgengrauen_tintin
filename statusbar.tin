@@ -1,0 +1,47 @@
+#NOP prompt ;
+
+
+#FUNCTION {_statusbar_text} 
+{
+	@DEBUG_func_start{_statusbar_text;{%0}};
+
+	#VARIABLE {_sb_char} {%0};
+	@DEBUG_var{_sb_char};
+
+	#FORMAT {_sb_text} {    LP: %d/%d | SP: %d/%d | Gift: %d/%d  }
+		{${_sb_char.vitals.hp}} {${_sb_char.maxvitals.max_hp}}
+		{${_sb_char.vitals.sp}} {${_sb_char.maxvitals.max_sp}}
+		{${_sb_char.vitals.poison}} {${_sb_char.maxvitals.max_poison}}
+		;
+	@DEBUG_var{_sb_text};
+
+	#UNVARIABLE {_sb_char};
+
+	#FORMAT {_sb_screenwidth} {%C} {}; 
+	@DEBUG_var{_sb_screenwidth};
+
+	#VARIABLE {_sb_screenwidth_spf} {%-${_sb_screenwidth}s};
+	@DEBUG_var{_sb_screenwidth_spf};
+
+	@DEBUG_func_end{_statusbar_text};
+
+	#FORMAT {result} ${_sb_screenwidth_spf} ${_sb_text};
+
+	#UNVARIABLE {_sb_screenwidth};
+	#UNVARIABLE {_sb_screenwidth_spf};
+	#UNVARIABLE {_sb_text};
+};
+
+#EVENT {VARIABLE UPDATE gmcp_char}
+{
+	@DEBUG_event_start{VARIABLE UPDATE gmcp_char};
+	#DELAY {0}
+	{
+		#NOP delay 0 to have access to the newly set value of the var ;
+		#NOP can not use %1 - this will be a partial value of char ... ;
+		#SHOWME {<799>@_statusbar_text{$gmcp_char}} {1}
+	};
+	@DEBUG_event_end{VARIABLE UPDATE gmcp_char};
+};
+
+

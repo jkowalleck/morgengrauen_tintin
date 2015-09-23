@@ -1,17 +1,18 @@
 #NOP TinTin++ config for MorgenGrauen -> http://mg.mud.de
 
-#READ {debug.tin}
+#READ {debug.tin};
 
-#READ {event.tin}
-#READ {mccp.tin}
-#READ {direction.tin}
-#READ {hilight.tin}
-#READ {action.tin}
-#READ {tab.tin}
-#READ {map.tin}
-#READ {gmcp.tin}
+#READ {event.tin};
+#READ {mccp.tin};
+#READ {gmcp.tin};
+#READ {direction.tin};
+#READ {hilight.tin};
+#READ {action.tin};
+#READ {tab.tin};
+#READ {map.tin};
+#READ {statusbar.tin};
 
-#config WORDWRAP {OFF}
-#SPLIT {20} {1}
+#config WORDWRAP {OFF};
+#SPLIT {20} {1};
 
 #SESSION {MorgenGrauen} {mg.mud.de} {23};

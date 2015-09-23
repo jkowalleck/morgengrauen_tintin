@@ -7,3 +7,5 @@
 #HIGHLIGHT  {^[%w:%*]%*}  {green}  {5}
 
 #HIGHLIGHT  {^[Tod:%*]%*}  {light red}  {5}
+
+#HIGHLIGHT {Loch} {red} {5}

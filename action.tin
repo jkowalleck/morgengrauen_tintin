@@ -1,3 +1,3 @@
-#NOP actions
+#NOP actions ;
 
 #ACTION {^Eine Stechmuecke kommt an} {toete muecke} {5}

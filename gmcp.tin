@@ -1,15 +1,15 @@
-#NOP GMCP
-#NOP read ingame help for details -> `hilfe gmcp`
+#NOP GMCP ;
+#NOP read ingame help for details -> `hilfe gmcp` ;
 
 
-#FORMAT _gmcp_IAC  %a 255
-#FORMAT _gmcp_DONT %a 254
-#FORMAT _gmcp_DO   %a 253
-#FORMAT _gmcp_WONT %a 252
-#FORMAT _gmcp_WILL %a 251
-#FORMAT _gmcp_SB   %a 250
-#FORMAT _gmcp_SE   %a 240
-#FORMAT _gmcp_GMCP %a 201
+#FORMAT {_gmcp_IAC}  {%a} {255};
+#FORMAT {_gmcp_DONT} {%a} {254};
+#FORMAT {_gmcp_DO}   {%a} {253};
+#FORMAT {_gmcp_WONT} {%a} {252};
+#FORMAT {_gmcp_WILL} {%a} {251};
+#FORMAT {_gmcp_SB}   {%a} {250};
+#FORMAT {_gmcp_SE}   {%a} {240};
+#FORMAT {_gmcp_GMCP} {%a} {201};
 
 
 
@@ -18,9 +18,9 @@
 #EVENT {IAC WILL GMCP}
 {
 	@DEBUG_event_start{IAC WILL GMCP};
-	#send {$_gmcp_IAC$_gmcp_DO$_gmcp_GMCP};
-	#send {$_gmcp_IAC$_gmcp_SB$_gmcp_GMCP\Core.Hello { "client": "${_client.name}", "version": "${_client.version}" }$_gmcp_IAC$_gmcp_SE};
-	#send {$_gmcp_IAC$_gmcp_SB$_gmcp_GMCP\Core.Supports.Set [ "Core 1", "MG.char 1", "MG.room 1", "MG.team 1", " comm.channel 1"]$_gmcp_IAC$_gmcp_SE};
+	#send {${_gmcp_IAC}${_gmcp_DO}${_gmcp_GMCP}};
+	#send {${_gmcp_IAC}${_gmcp_SB}${_gmcp_GMCP}Core.Hello { "client": "${_client.name}", "version": "${_client.version}" }${_gmcp_IAC}${_gmcp_SE}};
+	#send {${_gmcp_IAC}${_gmcp_SB}${_gmcp_GMCP}Core.Supports.Set [ "Core 1", "MG.char 1", "MG.room 1", "MG.team 1", " comm.channel 1"]${_gmcp_IAC}${_gmcp_SE}};
 	@DEBUG_event_end{IAC WILL GMCP};
 };
 

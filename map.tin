@@ -8,7 +8,7 @@
 
 #FUNCTION {map_room_setup}
 {
-	#IF {! $_map_enabled}
+	#IF {! ${_map_enabled}}
 	{
 		@DEBUG_msg{function map_room_setup aborted: no map found!};
 		#RETURN {#NOP};
@@ -25,8 +25,8 @@
 	#IF { "${_mrs_map_roomname}" == "" }
 	{
 		#NOP new room;
-		#MAP set roomname {$_mrs_room.id};
-		#MAP set roomdesc {$_mrs_room.short};
+		#MAP set roomname {${_mrs_room.id}};
+		#MAP set roomdesc {${_mrs_room.short}};
 
 		#MAP get roomsymbol {_mrs_map_roomsymbol};
 		@DEBUG_var{_mrs_map_roomsymbol};
@@ -39,27 +39,27 @@
 		#MAP get roomexits {_mrs_map_roomexits};
 		@DEBUG_var{_mrs_map_roomexits};
 
-		#FOREACH {$_mrs_room.exits[%*]} {_mrs_room_exit}
+		#FOREACH {${_mrs_room.exits[%*]}} {_mrs_room_exit}
 		{
 			@DEBUG_var{_mrs_room_exit};
 
-			@DEBUG_var{_mrs_map_roomexits[$_mrs_room_exit]};
-			#IF {$_mrs_map_roomexits[$_mrs_room_exit]}
+			@DEBUG_var{_mrs_map_roomexits[${_mrs_room_exit}]};
+			#IF {${_mrs_map_roomexits[${_mrs_room_exit}]}}
 			{
 				#NOP already known room;
-				#SHOWME {$_map_debug_li known exit: $_mrs_room_exit };
+				#SHOWME {${_map_debug_li} known exit: ${_mrs_room_exit} };
 			}
 			{
 				#NOP new unknown room;
-				#MAP dig {$_mrs_room_exit};
+				#MAP dig {${_mrs_room_exit}};
 
 				#MAP get roomexits {_mrs_map_roomexits};
 				@DEBUG_var{_mrs_map_roomexits};
 
-				#VARIABLE {_mrs_map_roomexit_vnum} {$_mrs_map_roomexits[$_mrs_room_exit]};
+				#VARIABLE {_mrs_map_roomexit_vnum} {${_mrs_map_roomexits[${_mrs_room_exit}]}};
 				@DEBUG_var{_mrs_map_roomexit_vnum};
 
-				#MAP set roomsymbol {?} {$_mrs_map_roomexit_vnum};
+				#MAP set roomsymbol {?} {${_mrs_map_roomexit_vnum}};
 				#UNVARIABLE {_mrs_map_roomexit_vnum}
 			};
 		};
@@ -68,10 +68,10 @@
 		#UNVARIABLE {_mrs_map_roomexits};
 	} {
 		#NOP already known room;
-		#SHOWME {$_map_debug_li known room: $_mrs_map_roomname };
+		#SHOWME {${_map_debug_li} known room: ${_mrs_map_roomname} };
 		#IF {"${_mrs_map_roomname}"!="${_mrs_room.id}"}
 		{
-			#SHOWME {$_map_error_li room mismatch \n map: $_mrs_map_roomname \n mud: ${_mrs_room.id} };
+			#SHOWME {${_map_error_li} room mismatch \n map: ${_mrs_map_roomname} \n mud: ${_mrs_room.id} };
 		};
 	};
 
