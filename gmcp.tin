@@ -13,6 +13,8 @@
 
 
 
+#VARIABLE {_client.name} {TinTin++};
+#VARIABLE {_client.version} {2.00.0};
 
 
 #EVENT {IAC WILL GMCP}

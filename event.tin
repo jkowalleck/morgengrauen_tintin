@@ -1,8 +1,6 @@
 #NOP events ;
 
-#VARIABLE {_client.name} {TinTin++};
-#VARIABLE {_client.version} {2};
-@DEBUG_showvar{_client};
+
 
 #EVENT {PROGRAM START}
 {
@@ -10,3 +8,4 @@
 	#VARIABLE {_client.version} {%1};
 	@DEBUG_showvar{_client};
 };
+

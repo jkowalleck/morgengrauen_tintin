@@ -2,7 +2,6 @@
 
 #READ {debug.tin};
 
-#READ {event.tin};
 #READ {mccp.tin};
 #READ {gmcp.tin};
 #READ {direction.tin};
@@ -11,6 +10,7 @@
 #READ {tab.tin};
 #READ {map.tin};
 #READ {statusbar.tin};
+#READ {event.tin};
 
 #config WORDWRAP {OFF};
 #SPLIT {20} {1};

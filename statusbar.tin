@@ -32,6 +32,20 @@
 	#UNVARIABLE {_sb_text};
 };
 
+
+#FUNCTION {statusbar_print}
+{
+	@DEBUG_func_start{statusbar_print};
+
+	#SHOWME {<799>@_statusbar_text{$gmcp_char}} {1};
+	
+	@DEBUG_func_end{statusbar_print};
+	#RETURN {#NOP};
+};
+
+
+
+
 #EVENT {VARIABLE UPDATE gmcp_char}
 {
 	@DEBUG_event_start{VARIABLE UPDATE gmcp_char};
@@ -39,9 +53,15 @@
 	{
 		#NOP delay 0 to have access to the newly set value of the var ;
 		#NOP can not use %1 - this will be a partial value of char ... ;
-		#SHOWME {<799>@_statusbar_text{$gmcp_char}} {1}
+		@statusbar_print{};
 	};
 	@DEBUG_event_end{VARIABLE UPDATE gmcp_char};
 };
 
 
+#EVENT {SCREEN RESIZE}
+{
+	@DEBUG_event_start{SCREEN RESIZE};
+	@statusbar_print{};
+	@DEBUG_event_end{SCREEN RESIZE};
+};
