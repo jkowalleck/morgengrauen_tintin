@@ -12,7 +12,7 @@
 #VARIABLE {_dbg_lvl_all}  255;
 
 
-#VARIABLE {DEBUG} ${_dbg_lvl_all};
+#VARIABLE {DEBUG} ${_dbg_lvl_none};
 
 
 
@@ -32,12 +32,12 @@
 #EVENT {VARIABLE UPDATE DEBUG}
 {
 	@DEBUG_msg{debug level set to %1};
-	@DEBUG_config_telnet{};
+	@DEBUG_config_telnet{%1};
 };
 
 #FUNCTION {DEBUG_config_telnet}
 {
-	#IF {$DEBUG >= ${_dbg_lvl_telnet}}
+	#IF {%1 >= ${_dbg_lvl_telnet}}
 	{
 		#CONFIG {debug telnet} {ON};
 	}
@@ -46,7 +46,7 @@
 	};
 	#RETURN {#NOP};
 };
-@DEBUG_config_telnet{};
+@DEBUG_config_telnet{$DEBUG};
 
 
 
